@@ -24,15 +24,24 @@
     <input type="checkbox" name="gender" id="gender">
      <label for="origin">Planet of Origin</label>
     <input type="checkbox" name="origin" id="origin">
-     <label for="image">Image</label>
-    <input type="checkbox" name="image" id="image">
      <label for="episode">Episodes</label>
     <input type="checkbox" name="episode" id="episode">
 
+    <hr>
+
     <button id="btn-go">Search</button>
+    <button type="submit" id="btn-go">Search</button>
+    <button type="reset" id="btn-reset">Clear Results</button>
   </form>
+
+
   <pre id="content"></pre>
   <img src="" alt="" id="img">
+
+  <div id="result-style">
+    <img src="" alt="" id="img">
+    <div id="content"></div>
+  </div>
 </body>
 <script src="./script.js"></script>
 </html>

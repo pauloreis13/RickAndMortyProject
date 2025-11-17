@@ -1,34 +1,43 @@
 const characterId = document.getElementById('characterId');
 const btnGo = document.getElementById('btn-go');
+const btnReset = document.getElementById('btn-reset');
 const content = document.getElementById('content');
+const containerResult =document.getElementById('result-style');
 const image = document.getElementById('img');
 
 const fetchApi = (value) => {
    const result = fetch(`https://rickandmortyapi.com/api/character/${value}`)
    .then((res) => res.json())
    .then ((data) => {
-    console.log(data.name);
     return data;
    })
-
    return result;
+   
 }
 
-const keys = ["name", "status", "species", "gender", "origin", "image", "episode"];
+const keys = ["name", "status", "species", "gender", "origin", "episode"];
 
 const buildResult = (result) => {
-   const newObject = {};
-   keys.map((key)=> document.getElementById(key))
+  return keys.map((key)=> document.getElementById(key))
    .map((elem)=> {
-      elem.checked && (newObject[elem.name] = result[elem.name]);
+     if ( elem.checked && typeof (result[elem.name]) !== 'object'){
+      const newElem = document.createElement('h1');
+      newElem.innerHTML = `${elem.name} : ${result[elem.name]}`;
+      //append a "child" into the HTML in this case the new element.
+      content.appendChild(newElem)
+     }
    })
-   return newObject;
 
 }
 
 btnGo.addEventListener('click', async (event) => {
+   // to fix the results on the screen
    event.preventDefault();
+
+   if (characterId.value === '') {
+      return content.innerHTML = 'You need to add a number to the search.'
+   }
    const result = await fetchApi(characterId.value);
-   content.textContent = `${JSON.stringify(buildResult(result), undefined, 2)}`
+   buildResult(result)
    image.src = `${result.image}` 
 });
