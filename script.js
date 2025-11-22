@@ -38,6 +38,15 @@ btnGo.addEventListener('click', async (event) => {
       return content.innerHTML = 'You need to add a number to the search.'
    }
    const result = await fetchApi(characterId.value);
-   buildResult(result)
-   image.src = `${result.image}` 
+   if (content.firstChild === null) {
+      containerResult.className = 'result-style';
+      image.src = `${result.image}` 
+      buildResult(result)
+   } else {
+      image.src = `${result.image}` 
+      content.innerHTML = ''; 
+      containerResult.className = 'result-style';
+      buildResult(result)
+   }
+ 
 });
